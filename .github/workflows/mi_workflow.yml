@@ -3,7 +3,7 @@ name: Check if branch is up to date with main
 on:
   pull_request:
     branches:
-      - develop  # o la rama a la que se hace el PR
+      - '*'  # o la rama a la que se hace el PR
 
 jobs:
   check_update:
