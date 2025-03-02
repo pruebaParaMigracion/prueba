@@ -1,0 +1,28 @@
+name: Block Push if Not Updated with Develop
+
+on:
+  push:
+    branches:
+      - '*'  # Se aplica a todas las ramas
+
+jobs:
+  check_develop_sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Develop
+        run: git fetch origin develop
+
+      - name: Check if Branch is Updated with Develop
+        run: |
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+          LOCAL_COMMIT=$(git rev-parse "$BRANCH_NAME")
+          DEVELOP_COMMIT=$(git rev-parse "origin/develop")
+
+          if [ "$LOCAL_COMMIT" != "$DEVELOP_COMMIT" ]; then
+            echo "❌ ERROR: No puedes subir cambios sin actualizar con develop."
+            exit 1
+          fi
