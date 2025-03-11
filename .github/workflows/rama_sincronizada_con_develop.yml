@@ -3,7 +3,7 @@ name: Block Push if Not Updated with Develop
 on:
   push:
     branches:
-      - '*'  # Se aplica a todas las ramas
+      - 'develop'  # Se aplica a todas las ramas
 
 jobs:
   check_develop_sync:
